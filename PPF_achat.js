@@ -27,7 +27,7 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_3 = function() {
+(lib.CachedBmp_6 = function() {
 	this.initialize(ss["PPF_achat_atlas_1"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
@@ -46,8 +46,79 @@ if (reversed == null) { reversed = false; }
 	props.reversed = reversed;
 	cjs.MovieClip.apply(this,[props]);
 
+	this.actionFrames = [0];
+	this.isSingleFrame = false;
+	// timeline functions:
+	this.frame_0 = function() {
+		if(this.isSingleFrame) {
+			return;
+		}
+		if(this.totalFrames == 1) {
+			this.isSingleFrame = true;
+		}
+		var root = this;
+		var stage = this.stage;
+		
+		// Activer le tactile pour smartphone
+		createjs.Touch.enable(stage);
+		
+		// Taille de la scène d'après le canvas
+		var W = stage.canvas.width;
+		var H = stage.canvas.height;
+		
+		
+		
+		// ---------- 2) COUCHE GRIS CLAIR À GRATTER ----------
+		var overlay = new createjs.Shape();
+		overlay.graphics.beginFill("#BBBBBB").drawRect(0, 0, W, H);
+		root.addChild(overlay);
+		
+		// On met la couche en cache pour pouvoir l'effacer
+		overlay.cache(0, 0, W, H);
+		
+		// ---------- 3) LOGIQUE DE "LAVE VITRE" ----------
+		var isScratching = false;
+		var lastX = 0;
+		var lastY = 0;
+		var brushSize = 60; // taille du "pinceau"
+		
+		// Quand on appuie (souris ou doigt) sur la couche
+		overlay.on("mousedown", function (evt) {
+		    isScratching = true;
+		    lastX = evt.stageX;
+		    lastY = evt.stageY;
+		});
+		
+		// Quand on relâche
+		stage.on("stagemouseup", function () {
+		    isScratching = false;
+		});
+		
+		// Quand on bouge
+		stage.on("stagemousemove", function (evt) {
+		    if (!isScratching) return;
+		
+		    // On dessine un trait qui servira de "gomme"
+		    overlay.graphics.clear();
+		    overlay.graphics
+		        .setStrokeStyle(brushSize, "round", "round")
+		        .beginStroke("rgba(0,0,0,1)")
+		        .moveTo(lastX, lastY)
+		        .lineTo(evt.stageX, evt.stageY);
+		
+		    // On applique ce trait pour effacer le cache
+		    overlay.updateCache("destination-out");
+		
+		    lastX = evt.stageX;
+		    lastY = evt.stageY;
+		});
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
+
 	// Calque_1
-	this.instance = new lib.CachedBmp_3();
+	this.instance = new lib.CachedBmp_6();
 	this.instance.setTransform(49.9,77,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
