@@ -59,56 +59,54 @@ if (reversed == null) { reversed = false; }
 		var root = this;
 		var stage = this.stage;
 		
-		// Activer le tactile (smartphone)
+		// Active le tactile (smartphone / tablette)
 		createjs.Touch.enable(stage, true, false);
 		
-		// Taille du canvas depuis Animate
+		// Taille de la scène (celle du document Animate)
 		var W = stage.canvas.width;
 		var H = stage.canvas.height;
 		
-		// -----------------------------------------------------
-		// 1) (OPTIONNEL) FOND DE TEST — enlève-le dans ton vrai projet
-		// -----------------------------------------------------
-		/*
-		var bg = new createjs.Shape();
-		bg.graphics.beginFill("#66CCFF").drawRect(0, 0, W, H);
-		root.addChild(bg);
-		*/
+		// ---------- (OPTIONNEL) FOND DE TEST ----------
+		// Si tu veux tester sans ton décor, décommente ça :
+		// var bg = new createjs.Shape();
+		// bg.graphics.beginFill("#66CCFF").drawRect(0, 0, W, H);
+		// root.addChild(bg);
+		// ---------------------------------------------
 		
-		// -----------------------------------------------------
-		// 2) COUCHE À GRATTER (rectangle gris)
-		// -----------------------------------------------------
+		// ---------- 1) COUCHE GRIS CLAIR À GRATTER ----------
 		var overlay = new createjs.Shape();
 		overlay.graphics.beginFill("#BBBBBB").drawRect(0, 0, W, H);
 		root.addChild(overlay);
 		
-		// On transforme ce calque en image interne pour pouvoir effacer
+		// Mettre la couche en cache pour pouvoir "effacer"
 		overlay.cache(0, 0, W, H);
 		
-		// -----------------------------------------------------
-		// 3) LOGIQUE DE LAVE-VITRE
-		// -----------------------------------------------------
-		
+		// ---------- 2) LOGIQUE "LAVE-VITRE" ----------
 		var isScratching = false;
 		var lastX = 0;
 		var lastY = 0;
-		var brushSize = 60; // diamètre du "pinceau"
+		var brushSize = 60; // taille du "pinceau"
 		
-		// Quand on pose le doigt / clique
+		// Quand on pose le doigt / clique sur la couche
 		overlay.on("mousedown", function (evt) {
 		    isScratching = true;
-		    lastX = evt.stageX;
-		    lastY = evt.stageY;
+		
+		    // Convertit la position globale (stage) en locale (overlay)
+		    var pt = overlay.globalToLocal(evt.stageX, evt.stageY);
+		    lastX = pt.x;
+		    lastY = pt.y;
 		});
 		
-		// Version mobile-friendly: "pressmove"
+		// Quand on bouge le doigt / la souris (événement touch-friendly)
 		overlay.on("pressmove", function (evt) {
 		    if (!isScratching) return;
 		
-		    var x = evt.stageX;
-		    var y = evt.stageY;
+		    // Position locale du doigt / de la souris
+		    var pt = overlay.globalToLocal(evt.stageX, evt.stageY);
+		    var x = pt.x;
+		    var y = pt.y;
 		
-		    // Dessiner un trait (ligne épaisse) comme une gomme
+		    // Dessine un trait qui servira de "gomme"
 		    overlay.graphics.clear();
 		    overlay.graphics
 		        .setStrokeStyle(brushSize, "round", "round")
@@ -116,17 +114,17 @@ if (reversed == null) { reversed = false; }
 		        .moveTo(lastX, lastY)
 		        .lineTo(x, y);
 		
-		    // Appliquer ce trait comme un effacement dans le cache
+		    // Applique ce trait sur le cache en mode effacement
 		    overlay.updateCache("destination-out");
 		
 		    lastX = x;
 		    lastY = y;
-		    
-		    // IMPORTANT: update sur mobile
+		
+		    // On force un rafraîchissement (en plus du Ticker, pour être safe)
 		    stage.update();
 		});
 		
-		// Quand on relève le doigt / bouton
+		// Quand on relève le doigt / le bouton
 		overlay.on("pressup", function () {
 		    isScratching = false;
 		});
@@ -154,7 +152,7 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/PPF_achat_atlas_1.png?1764509971814", id:"PPF_achat_atlas_1"}
+		{src:"images/PPF_achat_atlas_1.png", id:"PPF_achat_atlas_1"}
 	],
 	preloads: []
 };
