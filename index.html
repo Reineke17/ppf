@@ -47,7 +47,9 @@ function handleComplete(evt,comp) {
 </head>
 <body onload="init();" style="margin:0px;">
 	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:800px; height:350px">
-		<canvas id="canvas" width="800" height="350" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+		<canvas id="canvas" 
+        style="width:100%; height:auto; position:absolute; display:block;">
+		</canvas>
 		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:800px; height:350px; position: absolute; left: 0px; top: 0px; display: block;">
 		</div>
 	</div>
