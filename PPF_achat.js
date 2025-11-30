@@ -27,7 +27,7 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_6 = function() {
+(lib.CachedBmp_7 = function() {
 	this.initialize(ss["PPF_achat_atlas_1"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
@@ -59,58 +59,76 @@ if (reversed == null) { reversed = false; }
 		var root = this;
 		var stage = this.stage;
 		
-		// Activer le tactile pour smartphone
-		createjs.Touch.enable(stage);
+		// Activer le tactile (smartphone)
+		createjs.Touch.enable(stage, true, false);
 		
-		// Taille de la scène d'après le canvas
+		// Taille du canvas depuis Animate
 		var W = stage.canvas.width;
 		var H = stage.canvas.height;
 		
+		// -----------------------------------------------------
+		// 1) (OPTIONNEL) FOND DE TEST — enlève-le dans ton vrai projet
+		// -----------------------------------------------------
+		/*
+		var bg = new createjs.Shape();
+		bg.graphics.beginFill("#66CCFF").drawRect(0, 0, W, H);
+		root.addChild(bg);
+		*/
 		
-		
-		// ---------- 2) COUCHE GRIS CLAIR À GRATTER ----------
+		// -----------------------------------------------------
+		// 2) COUCHE À GRATTER (rectangle gris)
+		// -----------------------------------------------------
 		var overlay = new createjs.Shape();
 		overlay.graphics.beginFill("#BBBBBB").drawRect(0, 0, W, H);
 		root.addChild(overlay);
 		
-		// On met la couche en cache pour pouvoir l'effacer
+		// On transforme ce calque en image interne pour pouvoir effacer
 		overlay.cache(0, 0, W, H);
 		
-		// ---------- 3) LOGIQUE DE "LAVE VITRE" ----------
+		// -----------------------------------------------------
+		// 3) LOGIQUE DE LAVE-VITRE
+		// -----------------------------------------------------
+		
 		var isScratching = false;
 		var lastX = 0;
 		var lastY = 0;
-		var brushSize = 60; // taille du "pinceau"
+		var brushSize = 60; // diamètre du "pinceau"
 		
-		// Quand on appuie (souris ou doigt) sur la couche
+		// Quand on pose le doigt / clique
 		overlay.on("mousedown", function (evt) {
 		    isScratching = true;
 		    lastX = evt.stageX;
 		    lastY = evt.stageY;
 		});
 		
-		// Quand on relâche
-		stage.on("stagemouseup", function () {
-		    isScratching = false;
-		});
-		
-		// Quand on bouge
-		stage.on("stagemousemove", function (evt) {
+		// Version mobile-friendly: "pressmove"
+		overlay.on("pressmove", function (evt) {
 		    if (!isScratching) return;
 		
-		    // On dessine un trait qui servira de "gomme"
+		    var x = evt.stageX;
+		    var y = evt.stageY;
+		
+		    // Dessiner un trait (ligne épaisse) comme une gomme
 		    overlay.graphics.clear();
 		    overlay.graphics
 		        .setStrokeStyle(brushSize, "round", "round")
 		        .beginStroke("rgba(0,0,0,1)")
 		        .moveTo(lastX, lastY)
-		        .lineTo(evt.stageX, evt.stageY);
+		        .lineTo(x, y);
 		
-		    // On applique ce trait pour effacer le cache
+		    // Appliquer ce trait comme un effacement dans le cache
 		    overlay.updateCache("destination-out");
 		
-		    lastX = evt.stageX;
-		    lastY = evt.stageY;
+		    lastX = x;
+		    lastY = y;
+		    
+		    // IMPORTANT: update sur mobile
+		    stage.update();
+		});
+		
+		// Quand on relève le doigt / bouton
+		overlay.on("pressup", function () {
+		    isScratching = false;
 		});
 	}
 
@@ -118,7 +136,7 @@ if (reversed == null) { reversed = false; }
 	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
 
 	// Calque_1
-	this.instance = new lib.CachedBmp_6();
+	this.instance = new lib.CachedBmp_7();
 	this.instance.setTransform(49.9,77,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
@@ -126,17 +144,17 @@ if (reversed == null) { reversed = false; }
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(189.9,302,64.5,83);
+p.nominalBounds = new cjs.Rectangle(184.9,287,69.5,98);
 // library properties:
 lib.properties = {
 	id: '8DE6283DA06940BCA57631E77359B294',
-	width: 280,
-	height: 450,
+	width: 270,
+	height: 420,
 	fps: 24,
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/PPF_achat_atlas_1.png", id:"PPF_achat_atlas_1"}
+		{src:"images/PPF_achat_atlas_1.png?1764509971814", id:"PPF_achat_atlas_1"}
 	],
 	preloads: []
 };
