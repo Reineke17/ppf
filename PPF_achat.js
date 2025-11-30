@@ -27,15 +27,30 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_7 = function() {
+(lib.CachedBmp_10 = function() {
 	this.initialize(ss["PPF_achat_atlas_1"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
+// helper functions:
+
+function mc_symbol_clone() {
+	var clone = this._cloneProps(new this.constructor(this.mode, this.startPosition, this.loop, this.reversed));
+	clone.gotoAndStop(this.currentFrame);
+	clone.paused = this.paused;
+	clone.framerate = this.framerate;
+	return clone;
+}
+
+function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
+	var prototype = cjs.extend(symbol, cjs.MovieClip);
+	prototype.clone = mc_symbol_clone;
+	prototype.nominalBounds = nominalBounds;
+	prototype.frameBounds = frameBounds;
+	return prototype;
+	}
 
 
-
-// stage content:
-(lib.PPF_achat = function(mode,startPosition,loop,reversed) {
+(lib.Symbole2 = function(mode,startPosition,loop,reversed) {
 if (loop == null) { loop = true; }
 if (reversed == null) { reversed = false; }
 	var props = new Object();
@@ -46,7 +61,33 @@ if (reversed == null) { reversed = false; }
 	props.reversed = reversed;
 	cjs.MovieClip.apply(this,[props]);
 
-	this.actionFrames = [0];
+	// Calque_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#FFFFFF").ss(1,1,1).p("AsfldIY/AAIAAK7I4/AAg");
+	this.shape.setTransform(80,35);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#000000").s().p("AsfFeIAAq7IY/AAIAAK7g");
+	this.shape_1.setTransform(80,35);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+	this._renderFirstFrame();
+
+}).prototype = getMCSymbolPrototype(lib.Symbole2, new cjs.Rectangle(-1,-1,162,72), null);
+
+
+(lib.JEU1 = function(mode,startPosition,loop,reversed) {
+if (loop == null) { loop = true; }
+if (reversed == null) { reversed = false; }
+	var props = new Object();
+	props.mode = mode;
+	props.startPosition = startPosition;
+	props.labels = {};
+	props.loop = loop;
+	props.reversed = reversed;
+	cjs.MovieClip.apply(this,[props]);
+
 	this.isSingleFrame = false;
 	// timeline functions:
 	this.frame_0 = function() {
@@ -133,16 +174,125 @@ if (reversed == null) { reversed = false; }
 	// actions tween:
 	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
 
-	// Calque_1
-	this.instance = new lib.CachedBmp_7();
-	this.instance.setTransform(49.9,77,0.5,0.5);
+	// Calque_2
+	this.instance = new lib.CachedBmp_10();
+	this.instance.setTransform(28.6,68.3,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 	this._renderFirstFrame();
 
+}).prototype = getMCSymbolPrototype(lib.JEU1, new cjs.Rectangle(28.6,68.3,204.5,308), null);
+
+
+(lib.Symbole1 = function(mode,startPosition,loop,reversed) {
+if (loop == null) { loop = true; }
+if (reversed == null) { reversed = false; }
+	var props = new Object();
+	props.mode = mode;
+	props.startPosition = startPosition;
+	props.labels = {};
+	props.loop = loop;
+	props.reversed = reversed;
+	cjs.MovieClip.apply(this,[props]);
+
+	this.isSingleFrame = false;
+	// timeline functions:
+	this.frame_0 = function() {
+		if(this.isSingleFrame) {
+			return;
+		}
+		if(this.totalFrames == 1) {
+			this.isSingleFrame = true;
+		}
+		var root = this;
+		
+		// Empêche le bouton de capturer les events du fond
+		root.btn_1.mouseEnabled = true;
+		
+		// Quand on clique sur le bouton
+		root.btn_1.on("click", function() {
+		    root.parent.nextGame();
+		});
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
+
+	// Calque_1
+	this.btn_1 = new lib.Symbole2();
+	this.btn_1.name = "btn_1";
+	this.btn_1.setTransform(80,35,1,1,0,0,0,80,35);
+
+	this.timeline.addTween(cjs.Tween.get(this.btn_1).wait(1));
+
+	this._renderFirstFrame();
+
+}).prototype = getMCSymbolPrototype(lib.Symbole1, new cjs.Rectangle(-0.5,-0.5,161,71), null);
+
+
+// stage content:
+(lib.PPF_achat = function(mode,startPosition,loop,reversed) {
+if (loop == null) { loop = true; }
+if (reversed == null) { reversed = false; }
+	var props = new Object();
+	props.mode = mode;
+	props.startPosition = startPosition;
+	props.labels = {};
+	props.loop = loop;
+	props.reversed = reversed;
+	cjs.MovieClip.apply(this,[props]);
+
+	this.actionFrames = [0];
+	this.isSingleFrame = false;
+	// timeline functions:
+	this.frame_0 = function() {
+		if(this.isSingleFrame) {
+			return;
+		}
+		if(this.totalFrames == 1) {
+			this.isSingleFrame = true;
+		}
+		// Dans la frame 1 de la scène principale
+		var root = this;
+		
+		// On commence sur le mini-jeu 1
+		root.jeu_0.visible = true;
+		root.jeu_1.visible = false;
+		
+		root.nextGame = function() {
+		
+		    // Jeu 1 terminé → on affiche Jeu 2
+		    if (root.jeu_0.visible) {
+		        root.jeu_0.visible = false;
+		        root.jeu_1.visible = true;
+		        return;
+		    }
+		
+		};
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1));
+
+	// Calque_2
+	this.jeu_0 = new lib.Symbole1();
+	this.jeu_0.name = "jeu_0";
+	this.jeu_0.setTransform(140,275,1,1,0,0,0,80,35);
+
+	this.timeline.addTween(cjs.Tween.get(this.jeu_0).wait(1));
+
+	// Calque_1
+	this.jeu_1 = new lib.JEU1();
+	this.jeu_1.name = "jeu_1";
+	this.jeu_1.setTransform(17.2,21,1,1,0,0,0,17.2,21);
+
+	this.timeline.addTween(cjs.Tween.get(this.jeu_1).wait(1));
+
+	this._renderFirstFrame();
+
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(184.9,287,69.5,98);
+p.nominalBounds = new cjs.Rectangle(163.6,278.3,69.5,98);
 // library properties:
 lib.properties = {
 	id: '8DE6283DA06940BCA57631E77359B294',
@@ -152,7 +302,7 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/PPF_achat_atlas_1.png", id:"PPF_achat_atlas_1"}
+		{src:"images/PPF_achat_atlas_1.png?1764511351697", id:"PPF_achat_atlas_1"}
 	],
 	preloads: []
 };
