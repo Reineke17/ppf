@@ -21,7 +21,7 @@
   }
 </style>
 <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-<script src="PPF_achat.js?1765056089203"></script>
+<script src="PPF_achat.js?1765061920425"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
@@ -50,13 +50,13 @@ function handleComplete(evt,comp) {
 		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
 	}
 	exportRoot = new lib.PPF_achat();
+	exportRoot.addEventListener("tick", AdobeAn.handleFilterCache);
 	stage = new lib.Stage(canvas);	
 	//Registers the "tick" event listener.
 	fnStartAnimation = function() {
 		stage.addChild(exportRoot);
 		createjs.Ticker.framerate = lib.properties.fps;
 		createjs.Ticker.addEventListener("tick", stage);
-		stage.addEventListener("tick", stage._handleTick);
 	}	    
 	//Code to support hidpi screens and responsive scaling.
 	AdobeAn.makeResponsive(true,'height',true,1,[canvas,anim_container,dom_overlay_container]);	
