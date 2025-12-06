@@ -507,7 +507,7 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_132 = function() {
+(lib.CachedBmp_134 = function() {
 	this.initialize(ss["PPF_achat_atlas_5"]);
 	this.gotoAndStop(52);
 }).prototype = p = new cjs.Sprite();
@@ -591,7 +591,7 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_131 = function() {
+(lib.CachedBmp_133 = function() {
 	this.initialize(ss["PPF_achat_atlas_2"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
@@ -1156,7 +1156,7 @@ if (reversed == null) { reversed = false; }
 	this.instance_8 = new lib.CachedBmp_14();
 	this.instance_8.setTransform(22,807.2,0.5,0.5);
 
-	this.instance_9 = new lib.CachedBmp_131();
+	this.instance_9 = new lib.CachedBmp_133();
 	this.instance_9.setTransform(68.4,731,0.5,0.5);
 
 	this.instance_10 = new lib.CachedBmp_126();
@@ -1223,7 +1223,7 @@ if (reversed == null) { reversed = false; }
 	this.instance_23 = new lib.CachedBmp_26();
 	this.instance_23.setTransform(134.55,426.4,0.5,0.5);
 
-	this.instance_24 = new lib.CachedBmp_132();
+	this.instance_24 = new lib.CachedBmp_134();
 	this.instance_24.setTransform(71.35,174.5,0.5,0.5);
 
 	this.instance_25 = new lib.CachedBmp_24();
@@ -1489,16 +1489,16 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/CachedBmp_126.png?1765045802472", id:"CachedBmp_126"},
-		{src:"images/CachedBmp_125.png?1765045802472", id:"CachedBmp_125"},
-		{src:"images/CachedBmp_11.png?1765045802472", id:"CachedBmp_11"},
-		{src:"images/Imagebitmap15copy.png?1765045802472", id:"Imagebitmap15copy"},
-		{src:"images/Imagebitmap8.png?1765045802472", id:"Imagebitmap8"},
-		{src:"images/PPF_achat_atlas_1.png?1765045802424", id:"PPF_achat_atlas_1"},
-		{src:"images/PPF_achat_atlas_2.png?1765045802424", id:"PPF_achat_atlas_2"},
-		{src:"images/PPF_achat_atlas_3.png?1765045802424", id:"PPF_achat_atlas_3"},
-		{src:"images/PPF_achat_atlas_4.png?1765045802425", id:"PPF_achat_atlas_4"},
-		{src:"images/PPF_achat_atlas_5.png?1765045802426", id:"PPF_achat_atlas_5"}
+		{src:"images/CachedBmp_126.png", id:"CachedBmp_126"},
+		{src:"images/CachedBmp_125.png", id:"CachedBmp_125"},
+		{src:"images/CachedBmp_11.png", id:"CachedBmp_11"},
+		{src:"images/Imagebitmap15copy.png", id:"Imagebitmap15copy"},
+		{src:"images/Imagebitmap8.png", id:"Imagebitmap8"},
+		{src:"images/PPF_achat_atlas_1.png", id:"PPF_achat_atlas_1"},
+		{src:"images/PPF_achat_atlas_2.png", id:"PPF_achat_atlas_2"},
+		{src:"images/PPF_achat_atlas_3.png", id:"PPF_achat_atlas_3"},
+		{src:"images/PPF_achat_atlas_4.png", id:"PPF_achat_atlas_4"},
+		{src:"images/PPF_achat_atlas_5.png", id:"PPF_achat_atlas_5"}
 	],
 	preloads: []
 };
