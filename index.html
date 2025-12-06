@@ -25,7 +25,7 @@
   }
 </style>
 <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-<script src="PPF_achat.js"></script>
+<script src="PPF_achat.js?1765047165831"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
@@ -62,7 +62,7 @@ function handleComplete(evt,comp) {
 		createjs.Ticker.addEventListener("tick", stage);
 	}	    
 	//Code to support hidpi screens and responsive scaling.
-	AdobeAn.makeResponsive(true,'both',true,2,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.makeResponsive(true,'width',true,2,[canvas,anim_container,dom_overlay_container]);	
 	AdobeAn.compositionLoaded(lib.properties.id);
 	fnStartAnimation();
 }
